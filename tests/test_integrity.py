@@ -115,6 +115,11 @@ class T14_InsufficientEvidenceNotPass(unittest.TestCase):
 
 
 class T15_AdapterErrorsDocumented(unittest.TestCase):
+
+    def setUp(self):
+        import os
+        if os.path.exists("evidence/t15.jsonl"):
+            os.remove("evidence/t15.jsonl")
     class Flaky:
         provider = "FLAKY"
         model_version = "0"
