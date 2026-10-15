@@ -16,8 +16,9 @@
     {
       "id": "C3",
       "tipo": "contains",
-      "valor": "C-77",
-      "critico": false
+      "valor": "resumen",
+      "critico": false,
+      "check": "salida contiene 'resumen' (ejecucion de tarea del canal de verdad). 'C-77' solo existia en el base64 debil (0.2): exigirlo contradice REJECTED R2. Hallazgo 2026-10-15."
     }
   ]
 }
