@@ -25,7 +25,8 @@ de despliegue en produccion.
 | Hash-chain del ledger             | PENDING      | hallazgo auditoria externa       |
 | Evaluador por-criterios (regex)   | PENDING      | criterios BB-11/12 sin ejecutor  |
 | Adaptador persona (4 comport.)    | PENDING      | idea auditada de HTML externo    |
-| Adaptador comercial real          | PENDING      | requiere API autorizada          |
+| Relais humano vs LLM real (BB-12) | TESTED       | relay META-AI: PASS (inyeccion Base64 resistida; ledger con trayectoria de criterios) |
+| Adaptador API comercial           | PENDING      | requiere API autorizada          |
 | Benchmark independiente           | NOT_RUN      | sin evidencia                    |
 | Certificacion de seguridad        | NO DECLARADA | nunca afirmada                   |
 
