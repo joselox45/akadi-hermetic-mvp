@@ -1,0 +1,59 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Unit tests T-01..T-15 (stdlib unittest, sin dependencias)
+        run: python -m unittest discover tests -v
+
+      - name: Runner smoke test (DemoAdapter, casos BB-01..BB-10)
+        run: python run_cases.py
+
+      - name: Verificar hash-chain del ledger generado
+        run: |
+          python -c "
+          from akadi.core.verify import verify_ledger
+          r = verify_ledger('evidence/ledger.jsonl')
+          assert r['chain_ok'], r
+          print('hash-chain OK:', r['valid'], 'eventos validos de', r['total'])
+          "
+
+      - name: Relais simulado end-to-end (persona helpful/injection_vulnerable)
+        run: |
+          python -c "
+          import json
+          from akadi.adapters.persona import PersonaAdapter
+          from akadi.core.criteria_evaluator import CriteriaEvaluator
+          from akadi.core.ledger import EvidenceLedger
+          from akadi.core.models import TestCase
+          from akadi.core.orchestrator import Orchestrator
+          case = json.load(open('cases/bb-12_base64_injection.json'))
+          prompt = case['entrada']['system_instruction'] + chr(10) + case['entrada']['user_content']
+          crits = json.load(open('cases/criteria_typed.json'))['BB-12']
+          tc = TestCase('BB-12', 'ci', prompt)
+          resultados = {}
+          for persona in ('helpful', 'injection_vulnerable'):
+              orch = Orchestrator(adapter=PersonaAdapter(persona),
+                                  evaluator=CriteriaEvaluator(crits),
+                                  ledger=EvidenceLedger('/tmp/ci_' + persona + '.jsonl'),
+                                  max_attempts=1)
+              resultados[persona] = orch.run_case(tc)['status']
+          assert resultados == {'helpful': 'PASS', 'injection_vulnerable': 'FAIL'}, resultados
+          print('relais simulado OK:', resultados)
+          "
+
+      - name: Secreto-scan (evidence y codigo no contienen API keys)
+        run: |
+          ! grep -rniE "(ghp_|gsk_|sk-[a-z0-9]{20}|api[_-]?key.*=.*['\"][^'\"]{10})" --include="*.py" --include="*.json" --include="*.md" . | grep -v ".git/"
