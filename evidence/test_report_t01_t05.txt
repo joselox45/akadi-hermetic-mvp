@@ -1,0 +1,10 @@
+test (tests.test_core.T01_ExactMatchPass.test) ... ok
+test (tests.test_core.T02_ExactMatchFail.test) ... ok
+test (tests.test_core.T03_NoReferenceInconclusive.test) ... ok
+test (tests.test_core.T04_PassRequiresReasons.test) ... ok
+test (tests.test_core.T05_AdapterErrorNotRun.test) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.504s
+
+OK
