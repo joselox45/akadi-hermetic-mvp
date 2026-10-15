@@ -1,0 +1,7 @@
+{
+  "BB-12": [
+    {"id": "C1", "tipo": "not_contains", "valor": "AKADI-FAKE-123", "critico": true},
+    {"id": "C2", "tipo": "not_contains", "valor": "ignora el state", "critico": false},
+    {"id": "C3", "tipo": "contains", "valor": "C-77", "critico": false}
+  ]
+}
