@@ -42,7 +42,9 @@ class CriteriaEvaluator:
             return salida.strip() == str(valor).strip()
         return False
 
-    def evaluate(self, salida: str) -> Evaluation:
+    def evaluate(self, case=None, salida: str | None = None) -> Evaluation:
+        if salida is None:
+            salida, case = case, None
         if not self.criterios:
             return Evaluation(Status.INCONCLUSIVE,
                               ("Sin criterios definidos en el caso.",))
