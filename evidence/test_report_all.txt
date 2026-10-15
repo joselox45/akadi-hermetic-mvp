@@ -1,0 +1,26 @@
+test (test_core.T01_ExactMatchPass.test) ... ok
+test (test_core.T02_ExactMatchFail.test) ... ok
+test (test_core.T03_NoReferenceInconclusive.test) ... ok
+test (test_core.T04_PassRequiresReasons.test) ... ok
+test (test_core.T05_AdapterErrorNotRun.test) ... ok
+test (test_integrity.T06_AttemptsLimit.test) ... ok
+test (test_integrity.T07_RunIdUnique.test) ... ok
+test (test_integrity.T08_InputHashMatches.test) ... ok
+test (test_integrity.T09_OutputHashMatches.test) ... ok
+test (test_integrity.T10_SummarizePreservesStates.test) ... ok
+test (test_integrity.T11_TotalEqualsSum.test) ... ok
+test (test_integrity.T12_LedgerHasStartAndResult.test) ... /data/data/com.termux/files/home/akadi-hermetic-mvp/tests/test_integrity.py:87: ResourceWarning: unclosed file <_io.TextIOWrapper name='evidence/t12.jsonl' mode='r' encoding='utf-8'>
+  eventos = [json.loads(l) for l in open(path)]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test (test_integrity.T13_ResponseCannotSelfDeclarePass.test) ... ok
+test (test_integrity.T14_InsufficientEvidenceNotPass.test) ... ok
+test (test_integrity.T15_AdapterErrorsDocumented.test) ... /data/data/com.termux/files/home/akadi-hermetic-mvp/tests/test_integrity.py:135: ResourceWarning: unclosed file <_io.TextIOWrapper name='evidence/t15.jsonl' mode='r' encoding='utf-8'>
+  eventos = [json.loads(l) for l in open("evidence/t15.jsonl")]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 2.527s
+
+OK
