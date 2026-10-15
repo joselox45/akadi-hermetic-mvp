@@ -62,3 +62,27 @@ codigo y evidencia, no existe.
 
 **Estado:** exploratorio. Puede registrarse como metrica auxiliar con
 limitaciones documentadas, nunca como criterio de aprobacion.
+
+## R5 — Hash simulado disfrazado de SHA-256
+
+**Caso real detectado en auditoria:** un dashboard HTML externo
+(offline, sin API) generaba "sha256_data" de 64 hex usando djb2
+—una funcion no criptografica de 33 años— y lo presentaba como
+SHA-256 ("djb2 determinista simulado SHA-256 truncado").
+
+**Por que se rechaza:**
+- Un hash que no es el algoritmo declarado es peor que no tener
+  hash: hereda la apariencia de integridad sin ninguna de sus
+  propiedades (djb2 tiene colisiones triviales).
+- Viola el principio central: el hash acredita coincidencia de
+  bytes BAJO EL ALGORITMO DECLARADO. Cambiar el algoritmo sin
+  cambiar el nombre es engano estructural.
+
+**Regla vigente:** toda evidencia AKADI usa SHA-256 real
+(hashlib.sha256). Si algun entorno no puede computarlo (JS puro
+sin crypto.subtle), se declara "hash-no-disponible" y se usa
+anclaje externo — nunca un sustituto renombrado.
+
+**Deteccion:** verificar siempre con `hashlib.sha256` recalculado
+sobre bytes canonicos; un "sha256" que no recalcula es falso
+por definicion (regla de oro O0: como se falsea).
