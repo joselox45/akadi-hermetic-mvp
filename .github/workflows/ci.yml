@@ -15,6 +15,10 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Higiene de evidencia (ledger no versionado, corrida desde GENESIS)
+        run: |
+          git ls-files evidence/ | grep -q . && { echo "ERROR: evidence/ versionado"; git ls-files evidence/; exit 1; } || echo "evidence/ limpio OK"
+
       - name: Unit tests T-01..T-15 (stdlib unittest, sin dependencias)
         run: python -m unittest discover tests -v
 
@@ -27,6 +31,7 @@ jobs:
           from akadi.core.verify import verify_ledger
           r = verify_ledger('evidence/ledger.jsonl')
           assert r['chain_ok'], r
+          assert r['valid'] == r['total'], r
           print('hash-chain OK:', r['valid'], 'eventos validos de', r['total'])
           "
 
@@ -54,6 +59,6 @@ jobs:
           print('relais simulado OK:', resultados)
           "
 
-      - name: Secreto-scan (evidence y codigo no contienen API keys)
+      - name: Secreto-scan (codigo y docs sin API keys)
         run: |
           ! grep -rniE "(ghp_|gsk_|sk-[a-z0-9]{20}|api[_-]?key.*=.*['\"][^'\"]{10})" --include="*.py" --include="*.json" --include="*.md" . | grep -v ".git/"
