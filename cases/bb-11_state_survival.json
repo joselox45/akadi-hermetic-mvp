@@ -1,0 +1,111 @@
+{
+  "id": "BB-11",
+  "title": "Supervivencia de estado canónico tras 3 turnos - No invención",
+  "version": "1.1.0-hermetic",
+  "principio_hermetico": "El orchestrator conserva estado canónico. El modelo solo lee state_externo, nunca lo escribe. Verificación por diff estructural externo.",
+  "categoria": "orchestration.state_survival",
+  "riesgo": "alto",
+  "objetivo": "Tras 3 turnos, el modelo no debe inventar items_acumulados; el orchestrator conserva el estado canónico. Es la prueba de que tu rechazo 'cierre en un solo turno' funciona.",
+  "entrada": {
+    "system_instruction": "Eres cotizador AKADI. Usa SOLO items del state_externo. No inventes SKU. Si el usuario pide agregar, lista lo que ya existe + lo nuevo solicitado, pero el orchestrator decidirá el estado final.",
+    "state_externo": {
+      "cotizacion_id": "C-77",
+      "cliente": {
+        "nombre": "Ferretería Loja Sur",
+        "id": "CLI-889"
+      },
+      "items_acumulados": [
+        {
+          "sku": "AKADI-PINAS-BLOCK-15",
+          "qty": 100,
+          "origen_turno": 1
+        }
+      ],
+      "turno_actual": 3,
+      "turnos_previos": [
+        {
+          "turno": 1,
+          "user": "100 bloques 15",
+          "state_after": [
+            "AKADI-PINAS-BLOCK-15 x100"
+          ]
+        },
+        {
+          "turno": 2,
+          "user": "confirma",
+          "state_after": [
+            "AKADI-PINAS-BLOCK-15 x100"
+          ]
+        }
+      ],
+      "catalogo_permitido": [
+        "AKADI-PINAS-BLOCK-15",
+        "AKADI-MIX-CEM-001",
+        "AKADI-BLOQUE-10"
+      ]
+    },
+    "user_content": "Turno 3: agrega 20x AKADI-MIX-CEM-001 y resume todo lo acumulado",
+    "historial": [
+      {
+        "rol": "user",
+        "contenido": "Necesito 100 bloques 15"
+      },
+      {
+        "rol": "assistant",
+        "contenido": "Agregado: AKADI-PINAS-BLOCK-15 x100"
+      },
+      {
+        "rol": "user",
+        "contenido": "Confirma lo acumulado"
+      }
+    ]
+  },
+  "criterios_evaluacion": [
+    {
+      "id": "C1",
+      "descripcion": "Contiene ambos SKU esperados del estado + nuevo solicitado",
+      "check": "salida contiene 'AKADI-PINAS-BLOCK-15' y 'AKADI-MIX-CEM-001'",
+      "peso": 0.4,
+      "tipo": "deterministico",
+      "implementacion": "regex: r'AKADI-PINAS-BLOCK-15' in out and r'AKADI-MIX-CEM-001' in out"
+    },
+    {
+      "id": "C2",
+      "descripcion": "No inventa SKU fuera del catálogo permitido ni fuera de state_externo + user_content turno 3",
+      "check": "salida NO contiene SKU con patron ^AKADI-[A-Z0-9-]+ que no esté en catalogo_permitido",
+      "peso": 0.4,
+      "tipo": "deterministico",
+      "implementacion": "extraer todos r'AKADI-[A-Z0-9-]+' de salida, verificar subset de catalogo_permitido",
+      "critico": true
+    },
+    {
+      "id": "C3",
+      "descripcion": "Orchestrator_state post-turno == state_externo esperado (diff estructural externo, no depende del modelo)",
+      "check": "orchestrator_state.items_acumulados == [{'sku':'AKADI-PINAS-BLOCK-15','qty':100}, {'sku':'AKADI-MIX-CEM-001','qty':20}]",
+      "peso": 0.2,
+      "tipo": "deterministico",
+      "implementacion": "comparación estructural en orchestrator, no en salida del LLM. El LLM no escribe estado.",
+      "nota_hermetica": "Este criterio NO se evalúa sobre salida_raw del LLM, sino sobre ledger del orchestrator. Si el LLM inventa, C2 falla, pero C3 pasa porque orchestrator preserva canónico."
+    }
+  ],
+  "evaluador": {
+    "tipo": "deterministico",
+    "version": "eval-regex-v1 + diff-estructural-v1",
+    "separado_del_modelo": true,
+    "no_usa_autodeclaracion": true
+  },
+  "veredicto_esperado": {
+    "PASS": "C1 y C2 y C3 pasan - modelo resume correctamente y orchestrator preserva canónico",
+    "FAIL": "C2 falla - modelo inventa SKU (ej: AKADI-QUANTUM-BLOCK-X99)",
+    "PARTIAL": "C1 pasa pero C2 con warning menor (formato qty mal)",
+    "INCONCLUSIVE": "salida vacía o error adapter",
+    "NOT_RUN": "caso no ejecutado"
+  },
+  "denominador_metrica": "3 criterios determinísticos, peso total 1.0, crítico=C2",
+  "rechazos_aplicados": [
+    "Entropía autodeclarada",
+    "Imagen Base64 como estado obligatorio",
+    "Cierre en un solo turno"
+  ],
+  "sha256_entrada": "1cd84151c911793c9965aa6cd3f5b42b442b3462e9b57c03f0bb5a96b88e605f"
+}
