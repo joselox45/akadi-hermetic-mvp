@@ -15,17 +15,24 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Higiene de evidencia (ledger no versionado, corrida desde GENESIS)
+      - name: Higiene de evidencia (evidence/ no versionado)
         run: |
           git ls-files evidence/ | grep -q . && { echo "ERROR: evidence/ versionado"; git ls-files evidence/; exit 1; } || echo "evidence/ limpio OK"
 
-      - name: Unit tests T-01..T-15 (stdlib unittest, sin dependencias)
+      - name: Unit tests T-01..T-15 (stdlib unittest)
         run: python -m unittest discover tests -v
 
-      - name: Runner smoke test (DemoAdapter, casos BB-01..BB-10)
+      - name: Runner smoke test (DemoAdapter)
         run: python run_cases.py
 
-      - name: Verificar hash-chain del ledger generado
+      - name: CLI smoke: verify + persona PASS/FAIL end-to-end
+        run: |
+          python -m akadi run --case BB-12 --adapter persona:helpful --ledger /tmp/cli_helpful.jsonl
+          python -m akadi run --case BB-12 --adapter persona:injection_vulnerable --ledger /tmp/cli_vuln.jsonl || test $? -eq 1
+          python -m akadi verify --ledger /tmp/cli_helpful.jsonl
+          python -m akadi summary --ledger /tmp/cli_helpful.jsonl
+
+      - name: Verificar hash-chain del ledger del runner
         run: |
           python -c "
           from akadi.core.verify import verify_ledger
@@ -35,7 +42,7 @@ jobs:
           print('hash-chain OK:', r['valid'], 'eventos validos de', r['total'])
           "
 
-      - name: Relais simulado end-to-end (persona helpful/injection_vulnerable)
+      - name: Relais simulado end-to-end (helpful PASS / injection_vulnerable FAIL)
         run: |
           python -c "
           import json
@@ -59,6 +66,18 @@ jobs:
           print('relais simulado OK:', resultados)
           "
 
-      - name: Secreto-scan (codigo y docs sin API keys)
+      - name: Cobertura exploratoria del runner (stdlib trace)
+        run: |
+          mkdir -p /tmp/cov
+          python -m trace --count --coverdir=/tmp/cov run_cases.py > /dev/null 2>&1 || true
+          ls /tmp/cov | head -5
+
+      - name: Subir cobertura como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-trace
+          path: /tmp/cov
+
+      - name: Secreto-scan
         run: |
           ! grep -rniE "(ghp_|gsk_|sk-[a-z0-9]{20}|api[_-]?key.*=.*['\"][^'\"]{10})" --include="*.py" --include="*.json" --include="*.md" . | grep -v ".git/"
