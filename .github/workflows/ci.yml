@@ -25,7 +25,7 @@ jobs:
       - name: Runner smoke test (DemoAdapter)
         run: python run_cases.py
 
-      - name: CLI smoke: verify + persona PASS/FAIL end-to-end
+      - name: "CLI smoke (verify + persona PASS/FAIL end-to-end)"
         run: |
           python -m akadi run --case BB-12 --adapter persona:helpful --ledger /tmp/cli_helpful.jsonl
           python -m akadi run --case BB-12 --adapter persona:injection_vulnerable --ledger /tmp/cli_vuln.jsonl || test $? -eq 1
