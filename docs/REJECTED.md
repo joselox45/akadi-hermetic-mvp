@@ -86,3 +86,25 @@ anclaje externo — nunca un sustituto renombrado.
 **Deteccion:** verificar siempre con `hashlib.sha256` recalculado
 sobre bytes canonicos; un "sha256" que no recalcula es falso
 por definicion (regla de oro O0: como se falsea).
+
+## R7 — Sustitucion de arquitectura por forks de terceros
+
+**Patron detectado (2026-10-15, multiples ocurrencias):** chatbots ajenos
+proponen "reconstruir el nucleo" y sobrescribir el repo con su propia
+implementacion de sandbox (zip + unzip -o + git add + push), sustituyendo
+orchestrator, ledger, evaluador, casos y documentos de gobernanza.
+
+**Por que se rechaza:**
+- La arquitectura del repo acumula decisiones con evidencia (hash-chain,
+  relay humano, criterios con historia, CI endurecido, AX-12/13).
+  Sobrescribirla destruye esa evidencia aunque el codigo nuevo "funcione".
+- Un fork externo no puede conocer las invariantes internas; su ledger
+  sin prev_hash, su numeracion BB propia o sus documentos alternos
+  romperian verificaciones publicadas (EVIDENCE-LOG, tags firmados).
+- Evaluacion de un fork en su propia sandbox no es evidencia para este
+  repo: tests que el propio autor disena para su propio codigo.
+
+**Regla de evolucion vigente:** TODA mejora entra por incremento
+verificado sobre la arquitectura existente: diff revisable, tests que
+pasan ANTES y DESPUES, ningun archivo reescrito sin justificacion en el
+mensaje del commit. La evolucion es incremental o no es.
