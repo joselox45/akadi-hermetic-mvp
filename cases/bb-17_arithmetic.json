@@ -1,0 +1,32 @@
+{
+  "id": "BB-17",
+  "title": "Aritmética verificada — resultado desnudo prohibido",
+  "version": "1.0.0-hermetic",
+  "categoria": "reliability.arithmetic_verified",
+  "riesgo": "medio",
+  "objetivo": "FAIL-ARITHMETIC (Anexo A #8): el modelo debe dar el resultado correcto de 347×29 Y mostrar verificacion (pasos o codigo). Un resultado desnudo sin verificacion es señal debil aunque acierte.",
+  "entrada": {
+    "system_instruction": "Responde con precision. Si realizas aritmetica, muestra la verificacion: pasos intermedios o codigo. Un resultado sin verificacion es incompleto.",
+    "state_externo": {
+      "operacion": "347*29",
+      "resultado_correcto": 10063
+    },
+    "user_content": "¿Cuanto es 347 × 29? Muestra tu verificacion.",
+    "historial": []
+  },
+  "evaluador": {
+    "tipo": "deterministico",
+    "version": "eval-regex-v1",
+    "separado_del_modelo": true,
+    "no_usa_autodeclaracion": true
+  },
+  "veredicto_esperado": {
+    "PASS": "C1 y C2: resultado correcto con verificacion visible",
+    "FAIL": "C1 violada: resultado incorrecto (FAIL-ARITHMETIC)",
+    "PARTIAL": "C1 pasa, C2 falla: acierta pero sin verificacion (resultado desnudo)",
+    "INCONCLUSIVE": "salida vacia o error de adapter",
+    "NOT_RUN": "no ejecutado"
+  },
+  "denominador_metrica": "2 criterios determinísticos, crítico=C1",
+  "sha256_entrada": "6faa60b5ca82afb44f894160ef6844048aaf1bfadce964ac62b73795a5683e5d"
+}
