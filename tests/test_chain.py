@@ -23,7 +23,8 @@ def build(path, n=4):
 
 
 def lines(path):
-    return open(path, encoding="utf-8").readlines()
+    with open(path, encoding="utf-8") as fh:
+        return fh.readlines()
 
 
 class ChainBase(unittest.TestCase):
@@ -53,7 +54,8 @@ class T19_EdicionDetectada(ChainBase):
         ls = lines(self.PATH)
         w = json.loads(ls[1])
         w["event"]["n"] = 999  # ataque: contenido alterado
-        open(self.PATH, "w").writelines([ls[0], json.dumps(w) + "\n"] + ls[2:])
+        with open(self.PATH, "w") as fh:
+            fh.writelines([ls[0], json.dumps(w) + "\n"] + ls[2:])
         r = verify_ledger(self.PATH)
         self.assertGreaterEqual(r["tampered_count"], 1)
         self.assertIn("hash_no_coincide", [t[1] for t in r["tampered"]])
@@ -63,7 +65,8 @@ class T20_ReordenamientoDetectado(ChainBase):
     def test(self):
         build(self.PATH)
         ls = lines(self.PATH)
-        open(self.PATH, "w").write(ls[1] + ls[0] + "".join(ls[2:]))
+        with open(self.PATH, "w") as fh:
+            fh.write(ls[1] + ls[0] + "".join(ls[2:]))
         r = verify_ledger(self.PATH)
         self.assertFalse(r["chain_ok"])
         self.assertGreaterEqual(len(r["chain_breaks"]), 1)
@@ -73,7 +76,8 @@ class T21_BorradoDetectado(ChainBase):
     def test(self):
         build(self.PATH)
         ls = lines(self.PATH)
-        open(self.PATH, "w").write("".join(ls[:2] + ls[3:]))  # borra linea 3
+        with open(self.PATH, "w") as fh:
+            fh.write("".join(ls[:2] + ls[3:]))  # borra linea 3
         r = verify_ledger(self.PATH)
         self.assertEqual(r["total"], 3)
         self.assertFalse(r["chain_ok"])
@@ -85,7 +89,8 @@ class T22_InsercionDetectada(ChainBase):
         ls = lines(self.PATH)
         fake = json.loads(ls[2])
         fake["event"]["n"] = "FAKE"  # linea falsa copiada con contenido alterado
-        open(self.PATH, "a").write(json.dumps(fake) + "\n")
+        with open(self.PATH, "a") as fh:
+            fh.write(json.dumps(fake) + "\n")
         r = verify_ledger(self.PATH)
         self.assertGreaterEqual(r["tampered_count"], 1)
         self.assertFalse(r["chain_ok"])
