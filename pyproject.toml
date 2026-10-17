@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "akadi-hermetic-mvp"
-version = "0.3.0"
+version = "0.4.0"
 description = "Capa externa auditable para orquestar y evaluar LLMs comerciales opacos (ventana de chat, sin API)"
 readme = "README.md"
 requires-python = ">=3.10"

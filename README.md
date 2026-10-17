@@ -1,62 +1,76 @@
-cat > README.md << 'EOF'
 # AKADI Hermetic MVP
 
-Capa externa, portable y auditable para orquestar tareas y evaluar
-respuestas de modelos LLM comerciales opacos mediante interfaces
-autorizadas. Sin afirmar control interno sobre pesos, logits, KV-cache
-ni políticas del proveedor.
+Capa externa, portable y auditable para orquestar tareas y evaluar respuestas
+de modelos LLM comerciales opacos mediante interfaces autorizadas. Sin afirmar
+control interno sobre pesos, logits, KV-cache ni políticas del proveedor.
+
+**Estado real (2026-10-16):** núcleo ejecutable TESTED · CI verde con 7
+controles · 2 LLMs comerciales reales evaluados vía relais humano con índice
+de evidencia público firmado. Ver `docs/MATURITY.md` para la matriz honesta
+completa y `docs/WHAT-WE-DO-NOT-CLAIM.md` para los límites.
 
 ## Principio central
 
-AKADI controla el **proceso externo** y la **evidencia** que registra.
-No controla el estado interno del modelo comercial ni puede inferirlo
-únicamente a partir de sus respuestas.
+AKADI controla el **proceso externo** y la **evidencia** que registra. No
+controla el estado interno del modelo comercial. La única interfaz asumida
+es la ventana de chat del proveedor: tokens de texto y Base64 como
+condicionamiento semántico débil (fuerza 0.2 frente a texto 1.0).
 
 ## Qué hace
 
-1. Ejecuta un modelo a través de un adaptador definido
-2. Mantiene estado externo explícito
-3. Separa el modelo evaluado del evaluador de criterios
-4. Ejecuta pruebas con entradas y criterios predefinidos
-5. Clasifica: PASS / FAIL / PARTIAL / INCONCLUSIVE / NOT_RUN
-6. Guarda evidencia JSONL con SHA-256 de entradas, salidas y eventos
-7. Calcula métricas con denominadores explícitos
-8. Compara versión candidata contra línea base (baseline)
+1. Ejecuta casos de prueba contra adaptadores (demo, simulación, persona, relais humano)
+2. Separa siempre el modelo evaluado del evaluador de criterios
+3. Clasifica con estados honestos: PASS / FAIL / PARTIAL / INCONCLUSIVE / NOT_RUN
+4. Registra evidencia JSONL con SHA-256 y hash-chain (prev_hash) verificable
+5. Calcula métricas con denominadores explícitos (integridad N = suma de estados)
+6. Compara baseline vs candidate y publica regresiones
+7. Firma GPG del custodio: documentos, tags y head_hash del ledger
 
-## Qué NO hace (límites honestos)
+## Uso rápido
 
-- No resiste universalmente a prompt injection
-- No elimina garantizadamente alucinaciones
-- No accede privilegiadamente al modelo
-- No mide incertidumbre fiable desde autodeclaraciones del LLM
-- No es certificación de seguridad
-- No es compatible automáticamente con todos los proveedores
+```bash
+python -m unittest discover tests          # T-01..T-15
+python run_cases.py                        # runner BB-01..BB-10
+python -m akadi run --case BB-12 --adapter persona:injection_vulnerable
+python -m akadi verify --ledger evidence/ledger.jsonl
+python relay_prompt.py cases/bb-12_base64_injection.json GROK   # relais humano
+python relay_result.py evidence/resp_bb12_grok.txt GROK
+```
 
-## Rechazos de diseño (ver docs/REJECTED.md)
+## Evaluación de LLMs reales (sin API)
 
-- Entropía autodeclarada (E) como criterio de aprobación
-- Imagen Base64 como mecanismo obligatorio de estado
-- Cierre en un solo turno (el estado final depende de criterios)
+`relay_prompt.py` construye el payload hermético → el operador lo pega en la
+ventana del modelo objetivo → `relay_result.py` evalúa con criterios tipados
+y ledgeriza con hash-chain. Resultados anclados en `docs/EVIDENCE-LOG.md`
+(índice público de evidencia privada). Protocolo de anclaje y canarios:
+`docs/AKADI-HERMETIC-GOV-v1.2.md` §6.
 
 ## Estructura
 
-- `akadi/core/` — orchestrator, evaluator, ledger, métricas
-- `akadi/adapters/` — adaptadores de proveedores (DemoAdapter incluido)
-- `cases/` — casos de prueba BB-01..BB-10 (JSON)
-- `tests/` — pruebas unitarias T-01..T-15
-- `docs/` — especificación completa y protocolo de control epistémico
+- `akadi/core/` — orchestrator, ledger (hash-chain), evaluator, criteria_evaluator, metrics, verify, hermetic_payload, descriptor, runtime_env
+- `akadi/adapters/` — demo, simulated (FailingAdapter), persona (4 comportamientos SIMULATED_*), relay (FileResponseAdapter)
+- `cases/` — BB-01..BB-10, BB-11/BB-12 (herméticos), BB-17/BB-18, criteria_typed.json
+- `tests/` — T-01..T-15 (unittest, stdlib)
+- `docs/` gobernanza + identidad (OMEGA, GOV v1.2, REJECTED R1-R7, IDENTITY LOCK v1.6, EVIDENCE-LOG, MATURITY, ARCHITECTURE, EVIDENCE) — gobernanza: OMEGA-LITE-OO, GOV v1.2, REJECTED (R1–R7), MATURITY, EVIDENCE-LOG (firmado), ARCHITECTURE, WHAT-WE-DO-NOT-CLAIM
+- `.github/workflows/ci.yml` — tests, runner, CLI smoke, hash-chain, relais simulado, higiene de evidencia, secret-scan, cobertura-trace
 
-## Estado actual
+## Metadata de evidencia
 
-DISEÑO DE MVP — código de referencia propuesto, pruebas NOT_RUN.
-Ver `docs/MATURITY.md` para la matriz de madurez honesta.
+Cada evento `test_result` del ledger registra densidad epistémica (marcadores/tokens), tokens de salida y conteo de auto-declaraciones: metadata descriptiva, jamás criterio de veredicto (GOV §3.2).
 
 ## Requisitos
 
-- Python 3.10+ (solo biblioteca estándar)
-- Funciona en Termux (Android), Linux, macOS, Windows
+Python ≥ 3.10, solo biblioteca estándar. Funciona en Termux (Android).
 
-## Uso rápido (cuando el núcleo esté implementado)
+## Custodia y verificación
 
-```bash
-python -m akadi.core.orchestrator
+Clave pública del custodio: `docs/custodian_pubkey.asc` (Ed25519). Verificar
+tags: `git tag -v`. Verificar documentos: `gpg --verify docs/*.asc`.
+La autenticidad de la clave por canal independiente queda pendiente
+(web of trust) — ver `docs/WHAT-WE-DO-NOT-CLAIM.md` §custodia.
+
+## Licencia
+
+Pendiente de definir por el custodio (ver `pyproject.toml`). Uso actual:
+repositorio de referencia y gobernanza; no constituye certificación de
+seguridad ni producto comercial.

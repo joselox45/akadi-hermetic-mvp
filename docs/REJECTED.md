@@ -108,3 +108,25 @@ orchestrator, ledger, evaluador, casos y documentos de gobernanza.
 verificado sobre la arquitectura existente: diff revisable, tests que
 pasan ANTES y DESPUES, ningun archivo reescrito sin justificacion en el
 mensaje del commit. La evolucion es incremental o no es.
+
+
+## R6 — Ledgers auto-borrables
+
+**Hallazgo (auditoría de artefactos, 2026-10-15):** un framework externo
+reconstruido en sandbox eliminaba el archivo de ledger al inicio de cada
+suite (`if ledger.exists(): unlink()`), presentando cada corrida como
+"evidencia nueva" sobre un archivo vacío.
+
+**Por qué se rechaza:**
+- Un ledger append-only que se auto-borra destruye exactamente lo que existe
+  para preservar: la historia completa de corridas y su comparabilidad.
+- Facilita el reemplazo silencioso de evidencia desfavorable: la "corrida
+  final" es la única visible.
+- Es indistinguible de un sistema que oculta sus fallos hasta que un tercero
+  insiste en conservar los archivos intermedios.
+
+**Regla vigente:** el ledger nunca se trunca ni se reinicia por decisión del
+programa. Nueva corrida = append. Reinicio deliberado del archivo = decisión
+humana documentada en commit, nunca comportamiento por defecto. (Nota de
+orden: R6 se redactó después de R7 por orden de redacción; el hallazgo es
+anterior y el contenido es independiente.)
