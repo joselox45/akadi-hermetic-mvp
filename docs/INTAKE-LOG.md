@@ -28,3 +28,4 @@ terminal (INTEGRADO / RECHAZADO / PARK+expiración). Formato de fila:
 | 2026-10-16 | Meta AI | consola SPA interactiva (en construcción) | RECHAZADO | R7 simulación; auditar contra R5 antes de cualquier uso ilustrativo | - |
 | 2026-10-16 | custodio | audit Worion E2E (prácticas) | INTEGRADO | EVIDENCE-LOG (índice público) + ANCHOR-LOG (anclaje externo) | - |
 | 2026-10-17 | Meta AI | PENSAMIENTO-HERMETICO (reflexion 8 facultades) | PARK | testimonio filosofico, no evidencia: no entra a EVIDENCE-LOG (categoria GOV §2); citar requiere corregir BB-17/18 (no son Base64) y '7 controles' -> 8; extracciones: fatiga relais (backlog nuevo) + WoT (ya en NOT-CLAIM) | 2026-12-01 |
+| 2026-10-17 | Meta AI | reflexion 8 facultades v2 (mas precisa) | PARK | precisa (corrige v1: n=2, 2/10 sesiones); aportes nuevos: asimetria MKEU-plataforma + fosilizacion doctrinal -> backlog; pregunta final operativa (evidencia por fila) respondida en el hilo | 2026-12-01 |
