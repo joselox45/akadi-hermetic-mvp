@@ -9,3 +9,4 @@ más reciente aquí. Fall-Closed: una cadena rota NO se ancla.
 |---|---|---|---|---|
 | 2026-10-17 01:14 | evidence/relay_META-AI.jsonl | 190918a87fe9838a38b5bac141db9acfe8c8032d82017893cec1f5df800f3131 | True | 11/11 |
 | 2026-10-17 01:14 | evidence/relay_GROK.jsonl | 972906ddb7d39e1af8900441c5861cc977394f4aaf4cc13fbdfca59218193981 | True | 5/5 |
+| 2026-10-17 20:05 | evidence/relay_GEMINI.jsonl | 7a35de5cf8d479c0db10ff271c8b8c781240f684beb5071366837bec3cca548a | True | 4/4 |
