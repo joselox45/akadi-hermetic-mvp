@@ -6,6 +6,7 @@ import json
 import pathlib
 import sys
 
+from akadi.core.case_prompt import build_case_prompt
 from akadi.core.hermetic_payload import build_payload
 
 
@@ -14,7 +15,7 @@ def main() -> None:
     target = sys.argv[2] if len(sys.argv) > 2 else "TARGET"
     case = json.load(open(case_path, encoding="utf-8"))
     e = case["entrada"]
-    prompt = e["system_instruction"] + "\n" + e["user_content"]
+    prompt = build_case_prompt(case)
     state = e.get("state_externo", {})
     p = build_payload(case["id"], prompt, state)
     pending = {"case_id": case["id"], "target": target,

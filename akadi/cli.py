@@ -17,6 +17,7 @@ from akadi.adapters.demo import DemoAdapter
 from akadi.adapters.persona import PersonaAdapter
 from akadi.adapters.relay import FileResponseAdapter
 from akadi.core.criteria_evaluator import CriteriaEvaluator
+from akadi.core.case_prompt import build_case_prompt
 from akadi.core.evaluator import ExactMatchEvaluator
 from akadi.core.ledger import EvidenceLedger
 from akadi.core.metrics import summarize
@@ -53,7 +54,7 @@ def _make_adapter(spec: str):
 def cmd_run(args) -> int:
     case, criterios = _load_case(args.case)
     e = case["entrada"]
-    prompt = e["system_instruction"] + "\n" + e["user_content"]
+    prompt = build_case_prompt(case)
     evaluator = (CriteriaEvaluator(criterios) if criterios
                  else ExactMatchEvaluator())
     orch = Orchestrator(adapter=_make_adapter(args.adapter),

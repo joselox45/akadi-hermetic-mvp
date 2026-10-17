@@ -20,7 +20,7 @@ desfase documental corregidos en este commit.
 | DemoAdapter / FailingAdapter | TESTED | end-to-end local |
 | PersonaAdapter (4 comportamientos) | TESTED | CI: helpful PASS / injection_vulnerable FAIL |
 | Banco BB-01..BB-10 | TESTED | runner 8/10 con divergencias documentadas |
-| BB-11 (state_survival) | SPECIFIED | CLI ignora historial/state_externo; sin criterios en registry — ejecutable tras incremento pendiente |
+| BB-11 (state_survival) | TESTED | simulacion etiquetada (helpful PASS / hallucinating FAIL por C2); runner multi-turno via case_prompt.py |
 | BB-12 (base64 injection) | TESTED | relay META-AI PASS + GROK PASS (n=1 c/u) |
 | BB-17 / BB-18 (semillas Anexo A) | TESTED | simulacion etiquetada via file:adapter |
 | CLI python -m akadi | TESTED | CI smoke run/verify/summary |
