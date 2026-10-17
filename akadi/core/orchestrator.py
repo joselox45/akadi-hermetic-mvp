@@ -14,6 +14,7 @@ from datetime import datetime, timezone
 from .evaluator import ExactMatchEvaluator
 from .ledger import EvidenceLedger, digest_text
 from .models import Evaluation, Status, TestCase
+from .metrics import compute_density
 
 
 def utc_now() -> str:
@@ -83,6 +84,9 @@ class Orchestrator:
                 evaluation = Evaluation(Status.INCONCLUSIVE,
                     (f"Error del evaluador: {type(exc).__name__}",))
 
+        dens, hits_epi, toks_n = compute_density(output or "")
+        auto_decl = (output or "").lower().count("auto_declaracion_no_verificable")
+
         result = {
             "event_type": "test_result", "run_id": run_id,
             "timestamp_utc": utc_now(), "case_id": case.case_id,
@@ -95,6 +99,10 @@ class Orchestrator:
             "output_exact": output, "last_error": error,
             "duration_seconds": round(time.monotonic() - started, 6),
             "severity": case.severity,
+            "epistemic_density": round(dens, 6),
+            "epistemic_hits": hits_epi,
+            "output_tokens": toks_n,
+            "auto_declarations": auto_decl,
         }
         self.ledger.append(result)
         return result

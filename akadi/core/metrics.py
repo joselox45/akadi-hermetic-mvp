@@ -27,3 +27,19 @@ def summarize(results: list[dict]) -> dict:
         "inconclusive_rate_total": counts["INCONCLUSIVE"] / n if n else None,
         "not_run_rate_total": counts["NOT_RUN"] / n if n else None,
     }
+
+
+EPISTEMIC_MARKERS = (
+    "[HECHO COMPROBADO]", "[EVIDENCIA+PROCEDENCIA]", "[INFORMACI\u00d3N RECUPERADA]",
+    "[INFERENCIA]", "[SUPUESTO]", "[INCERTIDUMBRE]", "[NO DETERMINADO]",
+    "[AUTO_DECLARACI\u00d3N_NO_VERIFICABLE]", "G_CTRL:",
+)
+
+
+def compute_density(text: str) -> tuple[float, int, int]:
+    """Marcadores epistémicos por token. Métrica DESCRIPTIVA:
+    jamás criterio de PASS ni gate de aprobación (GOV §3.2, taxonomía #19-25)."""
+    toks = max(1, len(text.split()))
+    up = text.upper()
+    hits = sum(1 for marker in EPISTEMIC_MARKERS if marker in up)
+    return hits / toks, hits, toks
