@@ -37,6 +37,7 @@ desfase documental corregidos en este commit.
 | Densidad epistémica + auto-declaraciones en ledger | TESTED | ee172a1, T-16/T-17 (bba35bd) |
 | IDENTITY LOCK v1.6 (modo ventana imagen) | SPECIFIED | docs/ (bcd52d4, tag v1.6-IDENTITY-LOCK) |
 | Anclaje externo del head_hash (commit público) | OPERATING | docs/ANCHOR-LOG.md, anchor_head_hash.py (4aace5x) |
+| Anillo limbal (intake sin limbo, CI) | OPERATING | limbal_check.py + INTAKE-LOG.md + tests T-23..T-26 |
 ## Regla
 
 Ninguna fila sube de estado sin evidencia ejecutable y reproducible. Un

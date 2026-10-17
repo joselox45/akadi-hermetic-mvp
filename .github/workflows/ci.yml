@@ -78,6 +78,9 @@ jobs:
           name: coverage-trace
           path: /tmp/cov
 
+      - name: Anillo limbal (intake sin limbo)
+        run: python limbal_check.py
+
       - name: Secreto-scan
         run: |
           ! grep -rniE "(ghp_|gsk_|sk-[a-z0-9]{20}|api[_-]?key.*=.*['\"][^'\"]{10})" --include="*.py" --include="*.json" --include="*.md" . | grep -v ".git/"
