@@ -27,3 +27,4 @@ terminal (INTEGRADO / RECHAZADO / PARK+expiración). Formato de fila:
 | 2026-10-16 | chatbot privado | output evolución hermética (fork hermetic-audit) | RECHAZADO | código para repo inexistente (R7); extracción: density + auto-decl (ee172a1) | - |
 | 2026-10-16 | Meta AI | consola SPA interactiva (en construcción) | RECHAZADO | R7 simulación; auditar contra R5 antes de cualquier uso ilustrativo | - |
 | 2026-10-16 | custodio | audit Worion E2E (prácticas) | INTEGRADO | EVIDENCE-LOG (índice público) + ANCHOR-LOG (anclaje externo) | - |
+| 2026-10-17 | Meta AI | PENSAMIENTO-HERMETICO (reflexion 8 facultades) | PARK | testimonio filosofico, no evidencia: no entra a EVIDENCE-LOG (categoria GOV §2); citar requiere corregir BB-17/18 (no son Base64) y '7 controles' -> 8; extracciones: fatiga relais (backlog nuevo) + WoT (ya en NOT-CLAIM) | 2026-12-01 |
