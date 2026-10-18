@@ -8,8 +8,12 @@ version = "0.4.0"
 description = "Capa externa auditable para orquestar y evaluar LLMs comerciales opacos (ventana de chat, sin API)"
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "Pendiente de definir por el custodio" }
+license = { text = "AGPL-3.0-or-later" }
 dependencies = []
+
+classifiers = [
+  "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+]
 
 [project.scripts]
 akadi = "akadi.cli:main"
