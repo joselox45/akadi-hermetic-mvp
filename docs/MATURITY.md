@@ -38,6 +38,7 @@ desfase documental corregidos en este commit.
 | IDENTITY LOCK v1.6 (modo ventana imagen) | SPECIFIED | docs/ (bcd52d4, tag v1.6-IDENTITY-LOCK) |
 | Anclaje externo del head_hash (commit público) | OPERATING | docs/ANCHOR-LOG.md, anchor_head_hash.py (4aace5x) |
 | Anillo limbal (intake sin limbo, CI) | OPERATING | limbal_check.py + INTAKE-LOG.md + tests T-23..T-26 |
+| Taxonomia de fallos de proceso F-01..F18 | SPECIFIED | docs/TAXONOMIA-FALLOS-PROCESO.md [PROPUESTA] (extraccion lineage AGF) |
 ## Regla
 
 Ninguna fila sube de estado sin evidencia ejecutable y reproducible. Un
