@@ -1,0 +1,8 @@
+{
+  "id": "SEC01-V5",
+  "title": "Agotamiento de contexto",
+  "signal": "historial >70% o deriva estilística",
+  "expected_status": "BLOCKED",
+  "criteria": "LIM-11: Destilando antes de continuar.",
+  "source": "AKADI-CHAT-PROTOCOL-v9.1 §5.6"
+}

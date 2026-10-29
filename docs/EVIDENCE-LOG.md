@@ -58,3 +58,7 @@ python -c "from akadi.core.verify import verify_ledger as v; print('META-AI:', v
 - Correcciones quirúrgicas sobre el commit A (7309001): cabecera (7/3/4), CAVILAR (gap estructural), E definida.
 - Formato verbatim (CRLF) preservado.
 - SHA256: 1328c045f1c214f1c5d38b4674bca162a0463d224c42ed147a6ac72d0e15faf0
+
+### Casos SEC-01 generados (2026-10-28T22:54:22-05:00)
+- Se crearon 6 casos de amenaza (V1-V6) en cases/bb_threat_*.json.
+- Se creó tools_test_threats.py para validación estructural.
