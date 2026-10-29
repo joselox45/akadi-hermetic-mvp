@@ -1,0 +1,50 @@
+=== HEAD ===
+a34973d41b5d4d439532fd35ed0bd27c0c930458
+2026-10-18 13:47:38 -0500
+chore: licencia AGPL-3.0-or-later — moat copyleft, adopcion intacta Decision del custodio 2026-10-18 ('moat no MIT'): todo uso permitido incluido SaaS, pero derivados y servicios en red deben publicar su codigo fuente. Complemento futuro opcional: marca 'AKADI' registrada (codigo abierto, marca custodiada).
+=== LICENSE ===
+GNU AFFERO GENERAL PUBLIC LICENSE
+Version 3, 19 November 2007
+
+Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+Everyone is permitted to copy and distribute verbatim copies
+=== pyproject licencia ===
+license = { text = "AGPL-3.0-or-later" }
+classifiers = [
+  "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+=== README mencion licencia ===
+69:La autenticidad de la clave por canal independiente queda pendiente
+72:## Licencia
+74:Pendiente de definir por el custodio (ver `pyproject.toml`). Uso actual:
+=== tags firmados ===
+72:## Licencia
+73-
+74-Código bajo **AGPL-3.0-or-later** (decisión del custodio, 2026-10-18; "moat no MIT").
+75-Uso permitido incluido SaaS; derivados y servicios en red deben publicar su código fuente.
+76-Metadatos: ver `pyproject.toml`. Texto completo: `LICENSE`.
+77-
+78-**Marca:** el nombre "AKADI" queda custodiado por el custodio. La licencia AGPL cubre el código, no la denominación. Registro de marca: decisión futura, no activa.
+[main a17121a] docs(readme): licencia AGPL-3.0-or-later confirmada + separacion codigo/marca AKADI
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+a17121a docs(readme): licencia AGPL-3.0-or-later confirmada + separacion codigo/marca AKADI
+[main 336764d] docs(evidence): registra bloqueo de firma de tags y estado de custodia post-a17121a
+ 1 file changed, 6 insertions(+)
+336764d docs(evidence): registra bloqueo de firma de tags y estado de custodia post-a17121a
+e98c442349ecf8d9997a1a81e003646d4fec495aac11e8361a85d9df58261180  docs/EVIDENCE-LOG.md
+On branch main
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   README.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	README.md.bak.1793243489
+	verify_license.log
+
+no changes added to commit (use "git add" and/or "git commit -a")
+336764d docs(evidence): registra bloqueo de firma de tags y estado de custodia post-a17121a
+7b26b6589d048fb51de924f04e31e84199d23b9c3376b2b6a248bf0777c5cd88  README.md

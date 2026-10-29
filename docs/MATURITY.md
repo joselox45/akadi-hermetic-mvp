@@ -44,3 +44,10 @@ desfase documental corregidos en este commit.
 Ninguna fila sube de estado sin evidencia ejecutable y reproducible. Un
 hash valido no certifica correccion del contenido. Hallazgos de auditoria
 externa se verifican antes de corregir (ver commits AX).
+
+## Protocolo de chat v9.1 — ingreso fiel (2026-10-28T22:25:14-05:00)
+- Archivo: docs/protocols/AKADI-CHAT-PROTOCOL-v9.1.md
+- Estado: declarativo. No ejecutable. Sin cobertura CI.
+- Relación con GOV v1.2: lineage, no sustitución.
+- Hash SHA-256 al ingreso: be7366f02536c03576f12bbe9f3bc58b19ab75ae29c2bd718e777e4e09e60466
+- Correcciones posteriores: ver commit siguiente (no mezcladas con el ingreso).

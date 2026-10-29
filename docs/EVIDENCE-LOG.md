@@ -44,3 +44,8 @@ python -c "from akadi.core.verify import verify_ledger as v; print('META-AI:', v
 - Tags firmados: BLOQUEADO. Causa: sin clave secreta del custodio en entorno Termux.
 - Web of trust de docs/custodian_pubkey.asc: pendiente (README L69).
 - Acción futura: git tag -s v0.1.0 sobre a17121a al cargar clave.
+
+### Ingreso protocolo v9.1 (2026-10-28T22:25:14-05:00)
+- HEAD previo: 336764dd0378b063f9748d5b09bd95b49974c892
+- SHA256 archivo: be7366f02536c03576f12bbe9f3bc58b19ab75ae29c2bd718e777e4e09e60466
+- Fuente: /data/data/com.termux/files/home/protocolo grok v1.txt (Android /storage/emulated/0/Documents/)
