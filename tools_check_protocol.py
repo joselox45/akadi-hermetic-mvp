@@ -17,5 +17,5 @@ s6 = txt[txt.find("SECCIÓN 6"):txt.find("SECCIÓN 7")]
 s7 = txt[txt.find("SECCIÓN 7"):txt.find("SECCIÓN 8")]
 print("REAL §5:", len(set(re.findall(r"ENMIENDA\s+([A-Z]+-\d+)", s5))))
 print("REAL §6:", len(set(re.findall(r"ENMIENDA\s+([A-Z]+-\d+)", s6))))
-print("REAL §7:", len(set(re.findall(r"^7\.\d+\s+([A-ZÁÉÍÓÚ\- ]+?)\s+—", s7, re.M))))
+print("REAL §7:", len(set(re.findall(r"^\s*7\.\d+\s+([A-ZÁÉÍÓÚ\- ]+?)\s+—", s7, re.M))))
 print("E definida:", "E         Error epistémico" in txt)

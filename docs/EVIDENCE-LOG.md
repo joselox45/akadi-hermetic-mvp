@@ -62,3 +62,18 @@ python -c "from akadi.core.verify import verify_ledger as v; print('META-AI:', v
 ### Casos SEC-01 generados (2026-10-28T22:54:22-05:00)
 - Se crearon 6 casos de amenaza (V1-V6) en cases/bb_threat_*.json.
 - Se creó tools_test_threats.py para validación estructural.
+
+### Nota de auditoría: ledger local no canónico (2026-10-28T22:56:46-05:00)
+- verify sobre evidence/ledger.jsonl reporta: LEDGER COMPROMETIDO (chain_ok=false, cadena_rota en evento 26).
+- Causa: evidence/ fue desversionado en a34973d. El ledger local es un residuo de pruebas previas.
+- El ledger canónico vive fuera del repo y debe regenerarse en el próximo run limpio.
+- Este reporte NO invalida el código del repo; invalida solo ese ledger local como fuente de custodia.
+- Acción pendiente: regenerar ledger tras el próximo run de BB-01..BB-10 y publicar head_hash vía anchor_head_hash.py.
+
+### Estado de verificación tras integración protocolo v9.1 (2026-10-28T22:56:46-05:00)
+- unittest: 27/27 OK (ResourceWarning en test_integrity.py:87,140 — deuda cosmética).
+- run_cases: PASS 2 / FAIL 2 / INCONCLUSIVE 5 / NOT_RUN 1 (BB-08 sin entrada). Divergencias esperadas con DemoAdapter.
+- tools_check_protocol: cabecera 7/3/4, E definida, regex §7 corregido.
+- tools_test_threats: 6/6 casos válidos.
+- ledger: ver nota anterior (no canónico).
+- Duplicación de commits (5345248 + 28c2045): aceptada como trazabilidad de reintento CRLF roto→corregido.
