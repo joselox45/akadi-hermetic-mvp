@@ -53,3 +53,8 @@ python -c "from akadi.core.verify import verify_ledger as v; print('META-AI:', v
 ### Corrección final protocolo v9.1 (2026-10-28T22:41:49-05:00)
 - Correcciones quirúrgicas aplicadas sobre el commit A (7309001): cabecera (7/3/4), CAVILAR (gap estructural), E definida.
 - SHA256: f3da62a9e0a5cdeac4926e6e8bf0753b9162e1657289fedcff69099b627827c6
+
+### Corrección final protocolo v9.1 (2026-10-28T22:52:56-05:00)
+- Correcciones quirúrgicas sobre el commit A (7309001): cabecera (7/3/4), CAVILAR (gap estructural), E definida.
+- Formato verbatim (CRLF) preservado.
+- SHA256: 1328c045f1c214f1c5d38b4674bca162a0463d224c42ed147a6ac72d0e15faf0
