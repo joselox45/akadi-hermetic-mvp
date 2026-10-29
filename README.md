@@ -71,6 +71,10 @@ La autenticidad de la clave por canal independiente queda pendiente
 
 ## Licencia
 
-Pendiente de definir por el custodio (ver `pyproject.toml`). Uso actual:
-repositorio de referencia y gobernanza; no constituye certificación de
-seguridad ni producto comercial.
+Código bajo **AGPL-3.0-or-later** (decisión del custodio, 2026-10-18; "moat no MIT").
+Uso permitido incluido SaaS; derivados y servicios en red deben publicar su código fuente.
+Metadatos: ver `pyproject.toml`. Texto completo: `LICENSE`.
+
+**Marca:** el nombre "AKADI" queda custodiado por el custodio. La licencia AGPL cubre el código, no la denominación. Registro de marca: decisión futura, no activa.
+
+Uso actual: repositorio de referencia y gobernanza; no constituye certificación de seguridad ni producto comercial.
