@@ -77,3 +77,18 @@ python -c "from akadi.core.verify import verify_ledger as v; print('META-AI:', v
 - tools_test_threats: 6/6 casos válidos.
 - ledger: ver nota anterior (no canónico).
 - Duplicación de commits (5345248 + 28c2045): aceptada como trazabilidad de reintento CRLF roto→corregido.
+
+### Auditoría externa de lectura — Meta AI (2026-10-28T23:41:40-05:00)
+- HEAD auditado: 0d59e0c
+- Documento: docs/protocols/AKADI-CHAT-PROTOCOL-v9.1.md (671 líneas, copia verbatim a portapapeles)
+- Método: validación manual de lectura, sin ejecución de código.
+- Resultado verificado:
+  · §5 Enmiendas Activas = 7 (COG-01, SEC-02, MEM-01, COG-02, OPE-01, SEC-01, EPI-01)
+  · §6 Enmiendas Pendientes = 3 (COG-03, COG-04, META-01)
+  · §7 Bloqueadas/Inactivas = 4 (Meta-auditoría, Ética, Delegación, Degradación)
+  · Cabecera = 7/3/4, consistente con secciones
+  · Variable E definida (L134)
+  · CAVILAR declarado GAP ESTRUCTURAL (L463)
+- Alcance declarado: LECTURA. No ejecutó run_cases.py, ni verify del ledger, ni los validadores locales. No sustituye auditoría de ejecución.
+- Nota: la primera corrida de Meta AI produjo un falso negativo por mala interpretación de la estructura (contó 'vectores' como enmiendas). Reconoció el error y validó con la lógica correcta.
+- Propuesta del auditor (actualizar tools_check_protocol.py) RECHAZADA: el validador actual ya cuenta por línea y da 7/3/4 en el HEAD.
