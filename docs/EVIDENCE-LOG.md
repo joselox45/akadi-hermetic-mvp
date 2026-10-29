@@ -49,3 +49,7 @@ python -c "from akadi.core.verify import verify_ledger as v; print('META-AI:', v
 - HEAD previo: 336764dd0378b063f9748d5b09bd95b49974c892
 - SHA256 archivo: be7366f02536c03576f12bbe9f3bc58b19ab75ae29c2bd718e777e4e09e60466
 - Fuente: /data/data/com.termux/files/home/protocolo grok v1.txt (Android /storage/emulated/0/Documents/)
+
+### Corrección final protocolo v9.1 (2026-10-28T22:41:49-05:00)
+- Correcciones quirúrgicas aplicadas sobre el commit A (7309001): cabecera (7/3/4), CAVILAR (gap estructural), E definida.
+- SHA256: f3da62a9e0a5cdeac4926e6e8bf0753b9162e1657289fedcff69099b627827c6

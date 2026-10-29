@@ -18,8 +18,9 @@ en chats de LLM. Sin dependencia de sesión previa.
 Custodio: Meily — AKADI Strategic Intelligence — Piñas, El Oro, Ecuador
 Base: v9.0-RP-MAX
 Enmiendas integradas: 7 activas (SEC-01, SEC-02, COG-01, COG-02, MEM-01,
-EPI-01, OPE-01) + 1 pendiente (COG-03 CAVILAR) + 3 bloqueadas/inactivas
-(COG-04 FLUJO INVERSO, AUD-01 Meta-auditoría, NORM-01 Ética)
+EPI-01, OPE-01) + 3 pendientes (COG-03 CAVILAR, COG-04 FLUJO INVERSO, META-01
+SALTO CATEGORÍA) + 4 bloqueadas/inactivas (AUD-01 Meta-auditoría, NORM-01
+Ética, Delegación de Autoridad, Degradación Temporal)
 Estado: operativo declarativo. No enforcement técnico.
 Fecha de consolidación: sesión actual del Custodio.
 
@@ -130,6 +131,9 @@ para evitar ambigüedad.
             V2 (máximo en chat, sin browsing)
             VERIFIED (V3+) es imposible en chat (LIM-09).
   P_Verdad  Calibración global de la respuesta. No es probabilidad real.
+  E         Error epistémico declarado en [0,1]: 1 − P_Verdad media del turno.
+            Criterio SEALED (RB-06): E < 0.15 dos turnos consecutivos + GAPS = ∅.
+            Calibración subjetiva (LIM-05).
   FSM       Estado del ciclo: IDLE | RUNNING | EVALUATING | CLOSING |
             SEALED | ESCALATED | BLOCKED | BLOCKED_REVISION
   RAMA      Ramas del motor LLM activas (declarativo, no técnico).
@@ -456,7 +460,7 @@ CONDICIÓN DE DESBLOQUEO: ANILLO LIMBAL operando en al menos 2 turnos
 consecutivos + ≥1 RECHAZADO o EN_CUARENTENA con input externo no
 trivial. En la sesión de origen, la condición se cumplió parcialmente
 (input artificial de prueba, no input externo real). Estado actual:
-pendiente de decisión del Custodio.
+GAP ESTRUCTURAL declarado (EPI-01). Condición cumplida con input artificial, no externo real; no satisface el umbral de desbloqueo. Pendiente de decisión del Custodio.
 
 FUNCIÓN: pausa reflexiva obligatoria antes de conclusión material.
 Diferencia con SESGO-CHECK: SESGO-CHECK mira cómo razono; CAVILAR mira
