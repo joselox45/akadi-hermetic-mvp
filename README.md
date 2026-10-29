@@ -4,7 +4,7 @@ Capa externa, portable y auditable para orquestar tareas y evaluar respuestas
 de modelos LLM comerciales opacos mediante interfaces autorizadas. Sin afirmar
 control interno sobre pesos, logits, KV-cache ni políticas del proveedor.
 
-**Estado real (2026-10-16):** núcleo ejecutable TESTED · CI verde con 7
+**Estado real (2026-10-28):** núcleo ejecutable TESTED · CI verde con 7 controles · 2 LLMs comerciales reales evaluados vía relais humano con índice de evidencia público firmado · protocolo de chat AKADI v9.1 integrado como capa declarativa · 6 casos ejecutables de la Matriz de Amenazas SEC-01 (V1–V6) en `cases/` · licencia AGPL-3.0-or-later confirmada.
 controles · 2 LLMs comerciales reales evaluados vía relais humano con índice
 de evidencia público firmado. Ver `docs/MATURITY.md` para la matriz honesta
 completa y `docs/WHAT-WE-DO-NOT-CLAIM.md` para los límites.
