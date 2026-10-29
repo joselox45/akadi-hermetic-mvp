@@ -38,3 +38,9 @@ python -c "from akadi.core.verify import verify_ledger as v; print('META-AI:', v
 - Veredicto siempre con su trayectoria si hubo refinamiento de criterios.
 - `anclaje` ∈ {completo (§6 confirmado antes del payload), parcial, ninguno}.
 - Ninguna fila sin los dos hashes (payload y respuesta).
+## Custodia — estado 2026-10-28T22:12:13-05:00
+- HEAD: a17121a13b992b2b9d82a3bfaeacdbb5214920e5
+- README §Licencia: cerrado en a17121a (AGPL-3.0-or-later + marca declarada).
+- Tags firmados: BLOQUEADO. Causa: sin clave secreta del custodio en entorno Termux.
+- Web of trust de docs/custodian_pubkey.asc: pendiente (README L69).
+- Acción futura: git tag -s v0.1.0 sobre a17121a al cargar clave.
